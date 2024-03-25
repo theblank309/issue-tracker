@@ -13,6 +13,7 @@ import { useForm, Controller } from "react-hook-form";
 
 import { createIssueSchema } from "@/app/schema";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -27,6 +28,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [isSubmitting, setSubmitting] = useState(false);
 
   const MDEOptions = useMemo(() => {
     return {
@@ -46,10 +48,11 @@ const NewIssuePage = () => {
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitting(true);
             await axios.post("http://127.0.0.1:8000/issue", data);
             router.push("/issues");
           } catch (error) {
-            console.log(error);
+            setSubmitting(true);
             setError("An unexpected error occurred.");
           }
         })}
@@ -69,7 +72,9 @@ const NewIssuePage = () => {
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button>Submit New Issue</Button>
+        <Button disabled={isSubmitting}>
+          Submit New Issue {isSubmitting && <Spinner />}
+        </Button>
       </form>
     </div>
   );

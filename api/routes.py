@@ -1,6 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
 from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 import schema, models
 from database import engine, SessionLocal
@@ -8,6 +9,16 @@ from database import engine, SessionLocal
 models.Base.metadata.create_all(engine)
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["*"],
+)
 
 def getDB():
     db = SessionLocal()
@@ -24,7 +35,3 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
     db.refresh(new_issue)
 
     return new_issue
-
-@app.get("/main")
-def main():
-    return {"Hello": "World"}

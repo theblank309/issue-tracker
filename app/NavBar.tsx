@@ -11,10 +11,10 @@ const NavBar = () => {
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Issues", href: "/issue" },
+    { label: "Issues", href: "/issues" },
   ];
   return (
-    <nav className="min-h-14 border-b content-center pl-5">
+    <nav className="min-h-14 border-b content-center pl-5 mb-5">
       <Flex gap="3" className="items-center">
         <Box mr="5">
           <Flex className="font-bold text-lg items-center">

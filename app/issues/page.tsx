@@ -4,10 +4,11 @@ import Link from "next/link";
 
 const IssuesPage = () => {
   return (
-    <Button>
-      <PlusIcon />
-      <Link href="/issues/new">New Issue</Link>
-    </Button>
+    <Link href="/issues/new">
+      <Button>
+        <PlusIcon /> New Issue
+      </Button>
+    </Link>
   );
 };
 

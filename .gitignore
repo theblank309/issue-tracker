@@ -33,3 +33,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python dependencies
+env
+
+# others
+activate.bat
+*/__pycache__

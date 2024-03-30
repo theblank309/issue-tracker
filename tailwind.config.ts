@@ -8,15 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        'first-color': '#F6F6F6',
+        'second-color': '#A9BDD6',
+        'third-color': '#3A506B',
+        'fourth-color': '#1C2541',
+        'fifth-color': '#0B132B',
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
-        mono: ['var(--font-roboto-mono)'],
-      },
+      }
     },
   },
   plugins: [],

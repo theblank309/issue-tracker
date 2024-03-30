@@ -14,11 +14,11 @@ const NavBar = () => {
     { label: "Issues", href: "/issues" },
   ];
   return (
-    <nav className="min-h-14 border-b content-center pl-5 mb-5">
+    <nav className="min-h-16 border-b content-center pl-5 mb-5 bg-white">
       <Flex gap="3" className="items-center">
         <Box mr="5">
-          <Flex className="font-bold text-lg items-center">
-            <PiBugDroid size={"30px"} className="mr-2" /> Tracker
+          <Flex className="font-bold text-xl items-center text-fifth-color">
+            <PiBugDroid size={"35px"} className="mr-2" /> Tracker
           </Flex>
         </Box>
         {links.map((link) => (

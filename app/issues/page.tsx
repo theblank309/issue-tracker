@@ -1,5 +1,5 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import { Button } from "@radix-ui/themes";
+import Button from "@/app/components/Button";
 import Link from "next/link";
 
 const IssuesPage = () => {

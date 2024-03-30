@@ -23,10 +23,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>
+      <body>
         <Theme>
-          <NavBar />
-          <main className="pl-5">{children}</main>
+          <div
+            className={`${inter.variable} font-sans bg-first-color min-h-screen`}
+          >
+            <NavBar />
+            <main className="pl-5">{children}</main>
+          </div>
         </Theme>
       </body>
     </html>

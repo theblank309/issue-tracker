@@ -5,15 +5,16 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
 
 import "easymde/dist/easymde.min.css";
 import SimpleMDE from "react-simplemde-editor";
-import { Button, Callout, TextField, Text } from "@radix-ui/themes";
-import { useForm, Controller } from "react-hook-form";
+import { Callout, TextField, Text } from "@radix-ui/themes";
 
 import { createIssueSchema } from "@/app/schema";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import Button from "@/app/components/Button";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 

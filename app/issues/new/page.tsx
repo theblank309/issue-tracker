@@ -1,20 +1,20 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import "easymde/dist/easymde.min.css";
-import SimpleMDE from "react-simplemde-editor";
 import { Callout, TextField, Text } from "@radix-ui/themes";
 
 import { createIssueSchema } from "@/app/schema";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 import Button from "@/app/components/Button";
+import TextEditior from "./TextEditior";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -22,7 +22,6 @@ const NewIssuePage = () => {
   const router = useRouter();
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<IssueForm>({
@@ -30,13 +29,6 @@ const NewIssuePage = () => {
   });
   const [error, setError] = useState("");
   const [isSubmitting, setSubmitting] = useState(false);
-
-  const MDEOptions = useMemo(() => {
-    return {
-      spellChecker: true,
-      status: false,
-    };
-  }, []);
 
   return (
     <div className="max-w-xl mt-10">
@@ -46,7 +38,7 @@ const NewIssuePage = () => {
         </Callout.Root>
       )}
       <form
-        className="space-y-3"
+        className="space-y-2"
         onSubmit={handleSubmit(async (data) => {
           try {
             setSubmitting(true);
@@ -58,9 +50,19 @@ const NewIssuePage = () => {
           }
         })}
       >
-        <TextField.Root placeholder="Title" {...register("title")} />
+        <Text as="p" className="text-sm font-medium">
+          Title
+        </Text>
+        <TextField.Root
+          placeholder="Title of your issue"
+          {...register("title")}
+        />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
-        <Controller
+        <Text as="p" className="text-sm font-medium mt-5">
+          Description
+        </Text>
+        <TextEditior />
+        {/* <Controller
           name="description"
           control={control}
           render={({ field }) => (
@@ -71,7 +73,7 @@ const NewIssuePage = () => {
               className="text-sm"
             />
           )}
-        />
+        /> */}
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
           Submit New Issue {isSubmitting && <Spinner />}

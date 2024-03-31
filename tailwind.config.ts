@@ -14,6 +14,7 @@ const config: Config = {
         'third-color': '#3A506B',
         'fourth-color': '#1C2541',
         'fifth-color': '#0B132B',
+        'border-color': '#00062e32'
       },
       fontFamily: {
         sans: ['var(--font-inter)'],

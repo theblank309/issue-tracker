@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import "easymde/dist/easymde.min.css";
 import { Callout, TextField, Text } from "@radix-ui/themes";
@@ -23,6 +23,7 @@ const NewIssuePage = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
@@ -42,7 +43,7 @@ const NewIssuePage = () => {
         onSubmit={handleSubmit(async (data) => {
           try {
             setSubmitting(true);
-            await axios.post("http://127.0.0.1:8000/issue", data);
+            // await axios.post("http://127.0.0.1:8000/issue", data);
             router.push("/issues");
           } catch (error) {
             setSubmitting(true);
@@ -61,19 +62,11 @@ const NewIssuePage = () => {
         <Text as="p" className="text-sm font-medium mt-5">
           Description
         </Text>
-        <TextEditior />
-        {/* <Controller
+        <Controller
           name="description"
           control={control}
-          render={({ field }) => (
-            <SimpleMDE
-              placeholder="Description"
-              options={MDEOptions}
-              {...field}
-              className="text-sm"
-            />
-          )}
-        /> */}
+          render={({ field }) => <TextEditior onChange={field.onChange} />}
+        />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button disabled={isSubmitting}>
           Submit New Issue {isSubmitting && <Spinner />}

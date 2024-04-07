@@ -32,7 +32,7 @@ const NewIssuePage = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   return (
-    <div className="max-w-xl mt-10">
+    <div className="max-w-xl mt-5">
       {error && (
         <Callout.Root color="red" className="mb-3" size="1">
           <Callout.Text>{error}</Callout.Text>

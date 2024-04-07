@@ -9,7 +9,10 @@ interface Props {
 
 const Button = ({ children, bgColor = "#1C2541", disabled = false }: Props) => {
   return (
-    <RButton disabled={disabled} style={{ backgroundColor: bgColor }}>
+    <RButton
+      disabled={disabled}
+      style={{ backgroundColor: bgColor, cursor: "pointer" }}
+    >
       {children}
     </RButton>
   );

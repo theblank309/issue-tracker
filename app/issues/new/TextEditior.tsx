@@ -43,7 +43,21 @@ const TextEditior = ({ onChange, description }: Props) => {
     },
   });
 
+  const [eventArray, setEventArray] = useState<Array<String>>([]);
   const [selectedValue, setSelectedValue] = useState("text");
+
+  const updateEventArray = (element: string) => {
+    if (eventArray.length <= 2) {
+      setEventArray([...eventArray, element]);
+    } else {
+      setEventArray([...eventArray.slice(1), element]);
+    }
+  };
+
+  function arraysAreEqual(arr1: Array<String>, arr2: Array<String>) {
+    if (arr1.length !== arr2.length) return false;
+    return arr1.every((value, index) => value === arr2[index]);
+  }
 
   const handleValueChange = (value: string) => {
     setSelectedValue(value);
@@ -59,7 +73,15 @@ const TextEditior = ({ onChange, description }: Props) => {
       <EditorContent
         editor={editor}
         onKeyDown={(event) => {
-          if (event.key === "Enter") {
+          updateEventArray(event.key);
+          if (
+            arraysAreEqual(
+              ["Enter", "Backspace", "Enter"],
+              [...eventArray.slice(1), event.key]
+            )
+          ) {
+            setSelectedValue("text");
+          } else if (event.key === "Enter") {
             if (selectedValue === "list") {
               setSelectedValue("list");
             } else {

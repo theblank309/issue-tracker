@@ -5,6 +5,8 @@ import { Table } from "@radix-ui/themes";
 import axios from "axios";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 
+import delay from "delay";
+
 interface IssueResponse {
   id: number;
   title: string;
@@ -19,9 +21,10 @@ export enum Status {
 }
 
 const IssuesPage = async () => {
-  // const response = await axios.get("http://127.0.0.1:8000/get_issues");
-  const response = { data: [] };
+  const response = await axios.get("http://127.0.0.1:8000/get_issues");
+  // const response = { data: [] };
   const issues: IssueResponse[] = response.data;
+  // await delay(2000);
 
   const tableRows = (issue: IssueResponse) => {
     const date = new Date(issue.createdAt);
@@ -38,12 +41,14 @@ const IssuesPage = async () => {
 
   return (
     <>
-      <Link href="/issues/new" className="cursor-pointer">
-        <Button>
-          <PlusIcon /> New Issue
-        </Button>
-      </Link>
-      <div className="mt-5">
+      <div className="mb-5">
+        <Link href="/issues/new" className="cursor-pointer">
+          <Button>
+            <PlusIcon /> New Issue
+          </Button>
+        </Link>
+      </div>
+      <div>
         <Table.Root variant="surface">
           <Table.Header>
             <Table.Row>

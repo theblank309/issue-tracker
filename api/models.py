@@ -1,13 +1,13 @@
 import enum
 from datetime import datetime
-from sqlalchemy import Column, String, Integer,Text, Enum, Time
+from sqlalchemy import Column, String, Integer,Text, Enum, DateTime
 
 from database import Base
 
-class Status(enum.Enum):
-    OPEN = 1
-    IN_PROGRESS = 2
-    CLOSE = 3
+class Status(str, enum.Enum):
+    OPEN = 'OPEN'
+    IN_PROGRESS = 'IN_PROGRESS'
+    CLOSE = 'CLOSE'
 
 class Issue(Base):
     __tablename__ = 'issues'
@@ -16,5 +16,5 @@ class Issue(Base):
     title = Column(String(255))
     description = Column(Text)
     status = Column(Enum(Status), default=Status.OPEN)
-    createdAt = Column(Time, default=datetime.now().time())
-    updatedAt = Column(Time, default=datetime.now().time())
+    createdAt = Column(DateTime, default=datetime.now())
+    updatedAt = Column(DateTime, default=datetime.now())

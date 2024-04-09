@@ -43,7 +43,7 @@ const NewIssuePage = () => {
         onSubmit={handleSubmit(async (data) => {
           try {
             setSubmitting(true);
-            // await axios.post("http://127.0.0.1:8000/issue", data);
+            await axios.post("http://127.0.0.1:8000/issue", data);
             router.push("/issues");
           } catch (error) {
             setSubmitting(true);

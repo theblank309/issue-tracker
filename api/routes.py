@@ -2,6 +2,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 
 import schema, models
 from database import engine, SessionLocal
@@ -35,3 +36,12 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
     db.refresh(new_issue)
 
     return new_issue
+
+@app.get('/get_issues', status_code=status.HTTP_200_OK,response_model=List[schema.Issue])
+def create(db: Session = Depends(getDB)):
+    all_issues = db.query(models.Issue).all()
+
+    return all_issues
+
+if __name__ == "__main__":
+    uvicorn.run("routes:app", host="127.0.0.1", port=8000, reload=True)

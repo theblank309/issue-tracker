@@ -7,7 +7,7 @@ from database import Base
 class Status(str, enum.Enum):
     OPEN = 'OPEN'
     IN_PROGRESS = 'IN_PROGRESS'
-    CLOSE = 'CLOSE'
+    CLOSED = 'CLOSED'
 
 class Issue(Base):
     __tablename__ = 'issues'

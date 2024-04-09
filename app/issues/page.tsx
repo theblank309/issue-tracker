@@ -3,16 +3,24 @@ import Button from "@/app/components/Button";
 import Link from "next/link";
 import { Table } from "@radix-ui/themes";
 import axios from "axios";
+import IssueStatusBadge from "../components/IssueStatusBadge";
 
 interface IssueResponse {
   id: number;
   title: string;
   createdAt: string;
-  status: "OPEN" | "IN_PROGRESS" | "CLOSE";
+  status: Status;
+}
+
+export enum Status {
+  OPEN = "OPEN",
+  IN_PROGRESS = "IN_PROGRESS",
+  CLOSED = "CLOSED",
 }
 
 const IssuesPage = async () => {
-  const response = await axios.get("http://127.0.0.1:8000/get_issues");
+  // const response = await axios.get("http://127.0.0.1:8000/get_issues");
+  const response = { data: [] };
   const issues: IssueResponse[] = response.data;
 
   const tableRows = (issue: IssueResponse) => {
@@ -20,7 +28,9 @@ const IssuesPage = async () => {
     return (
       <Table.Row key={issue.id}>
         <Table.RowHeaderCell>{issue.title}</Table.RowHeaderCell>
-        <Table.Cell>{issue.status}</Table.Cell>
+        <Table.Cell>
+          <IssueStatusBadge status={issue.status} />
+        </Table.Cell>
         <Table.Cell>{date.toDateString()}</Table.Cell>
       </Table.Row>
     );

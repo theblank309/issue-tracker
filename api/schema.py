@@ -1,11 +1,6 @@
-import enum
 from datetime import datetime
 from pydantic import BaseModel
-
-class Status(str, enum.Enum):
-    OPEN = 'OPEN'
-    IN_PROGRESS = 'IN_PROGRESS'
-    CLOSE = 'CLOSE'
+from models import Status
 
 class Issue(BaseModel, use_enum_values=True):
     title: str

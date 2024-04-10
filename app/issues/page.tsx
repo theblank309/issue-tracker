@@ -7,11 +7,12 @@ import IssueStatusBadge from "../components/IssueStatusBadge";
 
 import delay from "delay";
 
-interface IssueResponse {
+export interface IssueResponse {
   id: number;
   title: string;
   createdAt: string;
   status: Status;
+  description: string;
 }
 
 export enum Status {
@@ -24,13 +25,15 @@ const IssuesPage = async () => {
   const response = await axios.get("http://127.0.0.1:8000/get_issues");
   // const response = { data: [] };
   const issues: IssueResponse[] = response.data;
-  // await delay(2000);
+  await delay(2000);
 
   const tableRows = (issue: IssueResponse) => {
     const date = new Date(issue.createdAt);
     return (
       <Table.Row key={issue.id}>
-        <Table.RowHeaderCell>{issue.title}</Table.RowHeaderCell>
+        <Table.RowHeaderCell>
+          <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+        </Table.RowHeaderCell>
         <Table.Cell>
           <IssueStatusBadge status={issue.status} />
         </Table.Cell>

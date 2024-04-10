@@ -1,6 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import { Button, Link, Skeleton, Table } from "@radix-ui/themes";
+import { Link, Skeleton, Table } from "@radix-ui/themes";
 import React from "react";
+import Button from "../components/Button";
 
 const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];

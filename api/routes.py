@@ -1,6 +1,6 @@
 from typing import List
 from sqlalchemy.orm import Session
-from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi import FastAPI, HTTPException, status, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
@@ -42,6 +42,14 @@ def create(db: Session = Depends(getDB)):
     all_issues = db.query(models.Issue).all()
 
     return all_issues
+
+@app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.Issue)
+def show(id: int, db: Session = Depends(getDB)):
+    blog = db.query(models.Issue).where(models.Issue.id==id).first()
+    if not blog:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                             detail=f"blog with id {id} not found")
+    return blog
 
 if __name__ == "__main__":
     uvicorn.run("routes:app", host="127.0.0.1", port=8000, reload=True)

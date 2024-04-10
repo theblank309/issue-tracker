@@ -4,6 +4,8 @@ import { IssueResponse } from "../page";
 import { notFound } from "next/navigation";
 
 import delay from "delay";
+import { Card, Flex, Heading, Text } from "@radix-ui/themes";
+import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 
 interface Props {
   params: { id: number };
@@ -29,10 +31,16 @@ const IssueDetailPage = async ({ params }: Props) => {
   const date = new Date(issue?.createdAt);
   return (
     <div>
-      <p>{issue?.title}</p>
-      <p>{issue?.status}</p>
-      <p>{date.toDateString()}</p>
-      <p>{issue?.description}</p>
+      <Heading as="h3" className="mt-8">
+        {issue?.title}
+      </Heading>
+      <Flex className="space-x-3 my-2">
+        <IssueStatusBadge status={issue?.status} />
+        <Text as="p">{date.toDateString()}</Text>
+      </Flex>
+      <Card>
+        <Text as="p">{issue?.description}</Text>
+      </Card>
     </div>
   );
 };

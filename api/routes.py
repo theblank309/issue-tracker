@@ -37,13 +37,13 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
 
     return new_issue
 
-@app.get('/get_issues', status_code=status.HTTP_200_OK,response_model=List[schema.Issue])
+@app.get('/get_issues', status_code=status.HTTP_200_OK,response_model=List[schema.IssueResponse])
 def create(db: Session = Depends(getDB)):
     all_issues = db.query(models.Issue).all()
 
     return all_issues
 
-@app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.Issue)
+@app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.IssueResponse)
 def show(id: int, db: Session = Depends(getDB)):
     blog = db.query(models.Issue).where(models.Issue.id==id).first()
     if not blog:

@@ -25,7 +25,7 @@ const IssuesPage = async () => {
   const response = await axios.get("http://127.0.0.1:8000/get_issues");
   // const response = { data: [] };
   const issues: IssueResponse[] = response.data;
-  await delay(2000);
+  // await delay(2000);
 
   const tableRows = (issue: IssueResponse) => {
     const date = new Date(issue.createdAt);

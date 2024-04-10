@@ -2,7 +2,11 @@ from datetime import datetime
 from pydantic import BaseModel
 from models import Status
 
-class Issue(BaseModel, use_enum_values=True):
+class Issue(BaseModel):
+    title: str
+    description: str
+
+class IssueResponse(BaseModel, use_enum_values=True):
     id: int
     title: str
     description: str

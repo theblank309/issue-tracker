@@ -1,11 +1,9 @@
 import axios from "axios";
-import React from "react";
-import { IssueResponse } from "../page";
 import { notFound } from "next/navigation";
+import { IssueResponse } from "../page";
 
-import delay from "delay";
-import { Box, Flex, Heading, Text } from "@radix-ui/themes";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
+import { Box, Flex, Heading, Text } from "@radix-ui/themes";
 import parse from "html-react-parser";
 
 interface Props {
@@ -24,7 +22,6 @@ const IssueDetailPage = async ({ params }: Props) => {
       notFound();
     }
   }
-  // await delay(2000);
   if (!issue) {
     notFound();
   }

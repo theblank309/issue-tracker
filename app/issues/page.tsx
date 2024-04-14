@@ -3,7 +3,6 @@ import CustomLink from "@/app/components/Link";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
 import axios from "axios";
-import delay from "delay";
 import Link from "next/link";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 
@@ -25,7 +24,6 @@ const IssuesPage = async () => {
   const response = await axios.get("http://127.0.0.1:8000/get_issues");
   // const response = { data: [] };
   const issues: IssueResponse[] = response.data;
-  await delay(2000);
 
   const tableRows = (issue: IssueResponse) => {
     const date = new Date(issue.createdAt);

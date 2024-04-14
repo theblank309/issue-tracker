@@ -1,7 +1,7 @@
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Link, Skeleton, Table } from "@radix-ui/themes";
 import React from "react";
-import Button from "../components/Button";
+import { PrimaryButton } from "@/app/components/Buttons";
 
 const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];
@@ -26,9 +26,9 @@ const LoadingIssuesPage = () => {
     <>
       <div className="mb-5">
         <Link href="/issues/new" className="cursor-pointer">
-          <Button>
+          <PrimaryButton>
             <PlusIcon /> New Issue
-          </Button>
+          </PrimaryButton>
         </Link>
       </div>
       <div>

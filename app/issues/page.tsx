@@ -1,11 +1,10 @@
+import { PrimaryButton } from "@/app/components/Buttons";
 import { PlusIcon } from "@radix-ui/react-icons";
-import Button from "@/app/components/Button";
-import Link from "next/link";
 import { Table } from "@radix-ui/themes";
 import axios from "axios";
-import IssueStatusBadge from "../components/IssueStatusBadge";
-
 import delay from "delay";
+import Link from "next/link";
+import IssueStatusBadge from "../components/IssueStatusBadge";
 
 export interface IssueResponse {
   id: number;
@@ -46,9 +45,9 @@ const IssuesPage = async () => {
     <>
       <div className="mb-5">
         <Link href="/issues/new" className="cursor-pointer">
-          <Button>
+          <PrimaryButton>
             <PlusIcon /> New Issue
-          </Button>
+          </PrimaryButton>
         </Link>
       </div>
       <div>

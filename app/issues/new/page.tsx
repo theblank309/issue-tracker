@@ -13,7 +13,7 @@ import { Callout, TextField, Text } from "@radix-ui/themes";
 import { createIssueSchema } from "@/app/schema";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
-import Button from "@/app/components/Button";
+import { PrimaryButton } from "@/app/components/Buttons";
 import TextEditior from "./TextEditior";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
@@ -68,9 +68,9 @@ const NewIssuePage = () => {
           render={({ field }) => <TextEditior onChange={field.onChange} />}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button disabled={isSubmitting}>
+        <PrimaryButton disabled={isSubmitting}>
           Submit New Issue {isSubmitting && <Spinner />}
-        </Button>
+        </PrimaryButton>
       </form>
     </div>
   );

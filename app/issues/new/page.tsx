@@ -13,9 +13,10 @@ import { createIssueSchema } from "@/app/schema";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 import { PrimaryButton } from "@/app/components/Buttons";
-import TextEditior from "./TextEditior";
+// import TextEditor from "./TextEditor";
+import dynamic from "next/dynamic";
 
-import delay from "delay";
+const TextEditor = dynamic(() => import("./TextEditor"), { ssr: false });
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -65,7 +66,7 @@ const NewIssuePage = () => {
         <Controller
           name="description"
           control={control}
-          render={({ field }) => <TextEditior onChange={field.onChange} />}
+          render={({ field }) => <TextEditor onChange={field.onChange} />}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <PrimaryButton disabled={isSubmitting}>

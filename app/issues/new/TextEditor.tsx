@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const TextEditior = ({ onChange, description }: Props) => {
+const TextEditor = ({ onChange, description }: Props) => {
   const editor = useEditor({
     content: "",
     extensions: [
@@ -94,4 +94,4 @@ const TextEditior = ({ onChange, description }: Props) => {
   );
 };
 
-export default TextEditior;
+export default TextEditor;

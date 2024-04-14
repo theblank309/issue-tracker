@@ -1,4 +1,5 @@
 import { PrimaryButton } from "@/app/components/Buttons";
+import CustomLink from "@/app/components/Link";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Table } from "@radix-ui/themes";
 import axios from "axios";
@@ -31,7 +32,7 @@ const IssuesPage = async () => {
     return (
       <Table.Row key={issue.id}>
         <Table.RowHeaderCell>
-          <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+          <CustomLink href={`/issues/${issue.id}`}>{issue.title}</CustomLink>
         </Table.RowHeaderCell>
         <Table.Cell>
           <IssueStatusBadge status={issue.status} />
@@ -44,7 +45,7 @@ const IssuesPage = async () => {
   return (
     <>
       <div className="mb-5">
-        <Link href="/issues/new" className="cursor-pointer">
+        <Link href="/issues/new">
           <PrimaryButton>
             <PlusIcon /> New Issue
           </PrimaryButton>

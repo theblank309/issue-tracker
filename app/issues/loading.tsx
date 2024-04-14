@@ -26,7 +26,7 @@ const LoadingIssuesPage = () => {
     <>
       <div className="mb-5">
         <Link href="/issues/new" className="cursor-pointer">
-          <PrimaryButton>
+          <PrimaryButton disabled={true}>
             <PlusIcon /> New Issue
           </PrimaryButton>
         </Link>

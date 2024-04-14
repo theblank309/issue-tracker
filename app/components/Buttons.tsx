@@ -1,10 +1,9 @@
 "use client";
 import { Button as RButton } from "@radix-ui/themes";
-import classnames from "classnames";
 
 interface Props {
   children: React.ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const PrimaryButton = ({ children, disabled = false }: Props) => {

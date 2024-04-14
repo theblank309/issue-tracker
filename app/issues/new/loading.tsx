@@ -5,15 +5,11 @@ const LoadingNewIssuePage = () => {
   return (
     <Box className="max-w-xl mt-5">
       <form className="space-y-2">
-        <Text as="p" className="text-sm font-medium">
-          <Skeleton>Title</Skeleton>
-        </Text>
-        <TextField.Root></TextField.Root>
-        <Text as="p" className="text-sm font-medium mt-5">
-          <Skeleton>Description</Skeleton>
-        </Text>
-        <TextArea placeholder="Reply to comment…" />
-        <PrimaryButton disabled={false}>Submit New Issue</PrimaryButton>
+        <Skeleton height="4vh" width="10vw" />
+        <Skeleton height="4vh" />
+        <Skeleton height="4vh" width="10vw" />
+        <Skeleton height="45vh" />
+        <PrimaryButton disabled={true}>Submit New Issue</PrimaryButton>
       </form>
     </Box>
   );

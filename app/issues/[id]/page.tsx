@@ -2,8 +2,10 @@ import axios from "axios";
 import { notFound } from "next/navigation";
 import { IssueResponse } from "../page";
 
+import { PrimaryButton } from "@/app/components/Buttons";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
-import { Box, Flex, Heading, Text } from "@radix-ui/themes";
+import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
+import { Box, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import parse from "html-react-parser";
 
 interface Props {
@@ -28,24 +30,50 @@ const IssueDetailPage = async ({ params }: Props) => {
 
   const date = new Date(issue?.createdAt);
   return (
-    <div className="mt-8">
-      <Heading as="h3">{issue?.title}</Heading>
-      <Flex className="space-x-3 my-2">
-        <IssueStatusBadge status={issue?.status} />
-        <Text as="p" className="text-sm">
-          {date.toDateString()}
+    <Grid
+      className="mt-8"
+      columns={{ initial: "1", md: "2" }}
+      gapY={{ initial: "3" }}
+    >
+      <Box width={{ md: "70vw" }}>
+        <Heading as="h3">{issue?.title}</Heading>
+        <Flex className="space-x-3 my-2">
+          <IssueStatusBadge status={issue?.status} />
+          <Text as="p" className="text-sm">
+            {date.toDateString()}
+          </Text>
+        </Flex>
+        <Text as="p" className="mt-5 mb-2 text-sm font-medium ml-1">
+          Description:
         </Text>
-      </Flex>
-      <Text as="p" className="mt-5 mb-2 text-sm font-medium ml-1">
-        Description:
-      </Text>
-      <Box
-        className="p-2 w-9/12 h-[50vh] border-2 rounded-md border-border-color bg-white"
-        style={{ overflow: "auto" }}
-      >
-        {parse(issue?.description)}
+        <Box
+          className="p-2 w-11/12 h-[50vh] border-2 rounded-md border-border-color bg-white"
+          style={{ overflow: "auto" }}
+        >
+          {parse(issue?.description)}
+        </Box>
       </Box>
-    </div>
+      <Flex
+        position="relative"
+        width={{ md: "25vw" }}
+        left={{ md: "22vw" }}
+        justify={{ md: "end" }}
+      >
+        <Flex
+          direction={{ md: "column" }}
+          gapY={{ md: "2" }}
+          gapX={{ initial: "1" }}
+          width="150px"
+        >
+          <PrimaryButton>
+            <Pencil2Icon /> Edit Issue
+          </PrimaryButton>
+          <PrimaryButton>
+            <TrashIcon /> Delete Issue
+          </PrimaryButton>
+        </Flex>
+      </Flex>
+    </Grid>
   );
 };
 

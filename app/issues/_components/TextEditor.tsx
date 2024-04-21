@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import FixedToolBar from "./ToolBar";
+import FixedToolBar from "@/app/issues/_components/ToolBar";
 
 interface Props {
   onChange: (richText: string) => void;
@@ -10,7 +10,7 @@ interface Props {
 
 const TextEditor = ({ onChange, description }: Props) => {
   const editor = useEditor({
-    content: "",
+    content: description,
     extensions: [
       StarterKit.configure({
         heading: {
@@ -39,7 +39,6 @@ const TextEditor = ({ onChange, description }: Props) => {
     },
     onUpdate({ editor }) {
       onChange(editor.getHTML());
-      console.log(editor.getHTML());
     },
   });
 
@@ -59,16 +58,14 @@ const TextEditor = ({ onChange, description }: Props) => {
     return arr1.every((value, index) => value === arr2[index]);
   }
 
-  const handleValueChange = (value: string) => {
-    setSelectedValue(value);
-  };
-
   return (
     <div>
       <FixedToolBar
         editor={editor}
         enterEvent={selectedValue}
-        handleValueChange={handleValueChange}
+        handleValueChange={(value: string) => {
+          setSelectedValue(value);
+        }}
       />
       <EditorContent
         editor={editor}

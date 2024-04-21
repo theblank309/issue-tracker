@@ -42,9 +42,9 @@ const IssueDetailPage = async ({ params }: Props) => {
         gapY={{ md: "2" }}
         gapX={{ initial: "1" }}
         className="md:ml-auto"
-        width="150px"
+        width={{ md: "150px" }}
       >
-        <EditIssue />
+        <EditIssue id={issue.id} />
         <DeleteIssue />
       </Flex>
     </Grid>

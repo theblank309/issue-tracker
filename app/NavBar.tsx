@@ -66,7 +66,6 @@ const NavBar = () => {
                 flexDirection: "column",
                 position: "fixed",
                 top: 0,
-                // right: 0,
                 right: open ? 0 : "-50%",
                 width: "50%",
                 height: "100%",

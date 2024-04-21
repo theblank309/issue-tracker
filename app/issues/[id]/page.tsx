@@ -1,6 +1,6 @@
 import axios from "axios";
 import { notFound } from "next/navigation";
-import { IssueResponse } from "../page";
+import { IssueResponse } from "@/app/schema";
 
 import { PrimaryButton } from "@/app/components/Buttons";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";

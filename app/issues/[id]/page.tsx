@@ -2,11 +2,10 @@ import axios from "axios";
 import { notFound } from "next/navigation";
 import { IssueResponse } from "@/app/schema";
 
-import { PrimaryButton } from "@/app/components/Buttons";
-import IssueStatusBadge from "@/app/components/IssueStatusBadge";
-import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
-import { Box, Flex, Grid, Heading, Text } from "@radix-ui/themes";
-import parse from "html-react-parser";
+import { Box, Flex, Grid } from "@radix-ui/themes";
+import IssueDetails from "@/app/issues/[id]/IssueDetails";
+import EditIssue from "@/app/issues/[id]/EditIssue";
+import DeleteIssue from "@/app/issues/[id]/DeleteIssue";
 
 interface Props {
   params: { id: number };
@@ -28,7 +27,6 @@ const IssueDetailPage = async ({ params }: Props) => {
     notFound();
   }
 
-  const date = new Date(issue?.createdAt);
   return (
     <Grid
       className="mt-8"
@@ -36,42 +34,18 @@ const IssueDetailPage = async ({ params }: Props) => {
       gapY={{ initial: "3" }}
     >
       <Box width={{ md: "70vw" }}>
-        <Heading as="h3">{issue?.title}</Heading>
-        <Flex className="space-x-3 my-2">
-          <IssueStatusBadge status={issue?.status} />
-          <Text as="p" className="text-sm">
-            {date.toDateString()}
-          </Text>
-        </Flex>
-        <Text as="p" className="mt-5 mb-2 text-sm font-medium ml-1">
-          Description:
-        </Text>
-        <Box
-          className="p-2 w-11/12 h-[50vh] border-2 rounded-md border-border-color bg-white"
-          style={{ overflow: "auto" }}
-        >
-          {parse(issue?.description)}
-        </Box>
+        <IssueDetails issue={issue} />
       </Box>
+
       <Flex
-        position="relative"
-        width={{ md: "25vw" }}
-        left={{ md: "22vw" }}
-        justify={{ md: "end" }}
+        direction={{ md: "column" }}
+        gapY={{ md: "2" }}
+        gapX={{ initial: "1" }}
+        className="md:ml-auto"
+        width="150px"
       >
-        <Flex
-          direction={{ md: "column" }}
-          gapY={{ md: "2" }}
-          gapX={{ initial: "1" }}
-          width="150px"
-        >
-          <PrimaryButton>
-            <Pencil2Icon /> Edit Issue
-          </PrimaryButton>
-          <PrimaryButton>
-            <TrashIcon /> Delete Issue
-          </PrimaryButton>
-        </Flex>
+        <EditIssue />
+        <DeleteIssue />
       </Flex>
     </Grid>
   );

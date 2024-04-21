@@ -7,7 +7,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
-import { Callout, TextField, Text } from "@radix-ui/themes";
+import { Callout, TextField, Text, Box } from "@radix-ui/themes";
 
 import { createIssueSchema } from "@/app/schema";
 import ErrorMessage from "@/app/components/ErrorMessage";
@@ -45,7 +45,7 @@ const NewIssuePage = () => {
   };
 
   return (
-    <div className="max-w-xl mt-5">
+    <Box className="max-w-xl mt-5">
       {error && (
         <Callout.Root color="red" className="mb-3" size="1">
           <Callout.Text>{error}</Callout.Text>
@@ -73,7 +73,7 @@ const NewIssuePage = () => {
           Submit New Issue {isSubmitting && <Spinner />}
         </PrimaryButton>
       </form>
-    </div>
+    </Box>
   );
 };
 

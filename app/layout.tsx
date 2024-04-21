@@ -26,7 +26,7 @@ export default function RootLayout({
       <body>
         <Theme>
           <div
-            className={`${inter.variable} font-sans bg-first-color min-h-screen`}
+            className={`${inter.variable} font-sans bg-first-color min-h-screen h-screen max-h-screen`}
           >
             <NavBar />
             <main className="px-5">{children}</main>

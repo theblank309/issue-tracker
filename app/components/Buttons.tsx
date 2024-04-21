@@ -7,7 +7,6 @@ interface Props {
 }
 
 const PrimaryButton = ({ children, disabled = false }: Props) => {
-  console.log(disabled);
   const primaryButtonStyle = {
     backgroundColor: disabled ? "#A9BDD6" : "#1C2541",
     cursor: "pointer",

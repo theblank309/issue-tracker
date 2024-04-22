@@ -8,7 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
-import { Box, Callout, Text, TextField } from "@radix-ui/themes";
+import { Box, Callout, Flex, Select, Text, TextField } from "@radix-ui/themes";
 
 import { createIssueSchema, IssueResponse } from "@/app/schema";
 import Spinner from "@/app/components/Spinner";
@@ -67,6 +67,25 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
           {...register("title")}
         />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
+        {issue && (
+          <>
+            <Text as="p" className="text-sm font-medium">
+              Status
+            </Text>
+            <Flex direction="column" maxWidth="150px">
+              <Select.Root defaultValue="Open">
+                <Select.Trigger />
+                <Select.Content position="popper">
+                  <Select.Group>
+                    <Select.Item value="Open">Open</Select.Item>
+                    <Select.Item value="In_Progress">In Progress</Select.Item>
+                    <Select.Item value="Closed">Closed</Select.Item>
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            </Flex>
+          </>
+        )}
         <Text as="p" className="text-sm font-medium mt-5">
           Description
         </Text>

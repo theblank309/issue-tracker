@@ -57,7 +57,7 @@ def update(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     if not issue.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"blog with id {id} not found")
-    issue.update({'title': request.title, 'description': request.description})
+    issue.update({'title': request.title, 'description': request.description, 'status': request.status})
     db.commit()
 
     return 'Updated'

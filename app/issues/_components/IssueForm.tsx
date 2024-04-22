@@ -10,7 +10,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Box, Callout, Flex, Select, Text, TextField } from "@radix-ui/themes";
 
-import { createIssueSchema, IssueResponse } from "@/app/schema";
+import { createIssueSchema, IssueResponse, Status } from "@/app/schema";
 import Spinner from "@/app/components/Spinner";
 import { PrimaryButton } from "@/app/components/Buttons";
 import ErrorMessage from "@/app/components/ErrorMessage";
@@ -24,6 +24,7 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
   const {
     register,
     handleSubmit,
+    setValue,
     control,
     formState: { errors },
   } = useForm<IssueFormData>({
@@ -73,13 +74,16 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
               Status
             </Text>
             <Flex direction="column" maxWidth="150px">
-              <Select.Root defaultValue="Open">
+              <Select.Root
+                defaultValue={issue?.status}
+                onValueChange={(value: Status) => setValue("status", value)}
+              >
                 <Select.Trigger />
                 <Select.Content position="popper">
                   <Select.Group>
-                    <Select.Item value="Open">Open</Select.Item>
-                    <Select.Item value="In_Progress">In Progress</Select.Item>
-                    <Select.Item value="Closed">Closed</Select.Item>
+                    <Select.Item value="OPEN">Open</Select.Item>
+                    <Select.Item value="IN_PROGRESS">In Progress</Select.Item>
+                    <Select.Item value="CLOSED">Closed</Select.Item>
                   </Select.Group>
                 </Select.Content>
               </Select.Root>

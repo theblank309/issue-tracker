@@ -1,10 +1,5 @@
 import { z } from 'zod';
 
-export const createIssueSchema = z.object({
-    title: z.string().min(1).max(255),
-    description: z.string().min(1)
-});
-
 export interface IssueResponse {
     id: number;
     title: string;
@@ -18,3 +13,10 @@ export enum Status {
     IN_PROGRESS = "IN_PROGRESS",
     CLOSED = "CLOSED",
 }
+
+export const createIssueSchema = z.object({
+    title: z.string().min(1).max(255),
+    description: z.string().min(1),
+    status: z.nativeEnum(Status)
+});
+

@@ -35,8 +35,14 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
   const postIssue = async (data: any) => {
     try {
       setSubmitting(true);
-      await axios.post("http://127.0.0.1:8000/issue", data);
-      router.push("/issues");
+      if (issue) {
+        await axios.patch(`http://127.0.0.1:8000/issues/${issue?.id}`, data);
+        router.push(`/issues/${issue?.id}`);
+      } else {
+        await axios.post("http://127.0.0.1:8000/issue", data);
+        router.push("/issues");
+      }
+      router.refresh();
     } catch (error) {
       setSubmitting(true);
       setError("An unexpected error occurred.");
@@ -67,6 +73,7 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
         <Controller
           name="description"
           control={control}
+          defaultValue={issue?.description}
           render={({ field }) => (
             <TextEditor
               onChange={field.onChange}

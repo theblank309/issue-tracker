@@ -51,5 +51,16 @@ def show(id: int, db: Session = Depends(getDB)):
                              detail=f"blog with id {id} not found")
     return blog
 
+@app.patch('/issues/{id}', status_code=status.HTTP_202_ACCEPTED)
+def update(id: int, request: schema.Issue, db: Session = Depends(getDB)):
+    issue = db.query(models.Issue).where(models.Issue.id == id)
+    if not issue.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"blog with id {id} not found")
+    issue.update({'title': request.title, 'description': request.description})
+    db.commit()
+
+    return 'Updated'
+
 if __name__ == "__main__":
     uvicorn.run("routes:app", host="127.0.0.1", port=8000, reload=True)

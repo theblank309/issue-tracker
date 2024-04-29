@@ -25,7 +25,7 @@ const IssuesTable = ({ issues }: Props) => {
   };
 
   return (
-    <Table.Root variant="surface">
+    <Table.Root variant="surface" layout="fixed">
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>

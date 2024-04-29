@@ -9,6 +9,7 @@ export interface IssueResponse {
 }
   
 export enum Status {
+    ALL = 'ALL',
     OPEN = "OPEN",
     IN_PROGRESS = "IN_PROGRESS",
     CLOSED = "CLOSED",

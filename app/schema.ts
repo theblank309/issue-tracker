@@ -17,6 +17,6 @@ export enum Status {
 export const createIssueSchema = z.object({
     title: z.string().min(1).max(255),
     description: z.string().min(1),
-    status: z.nativeEnum(Status)
+    status: z.nativeEnum(Status).optional()
 });
 

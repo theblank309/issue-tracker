@@ -45,7 +45,7 @@ const IssueDetailPage = async ({ params }: Props) => {
         width={{ md: "150px" }}
       >
         <EditIssue id={issue.id} />
-        <DeleteIssue />
+        <DeleteIssue id={issue.id} />
       </Flex>
     </Grid>
   );

@@ -1,9 +1,17 @@
-import { PrimaryButton } from "@/app/components/Buttons";
+"use client";
+
 import { TrashIcon } from "@radix-ui/react-icons";
 import { AlertDialog, Button, Flex } from "@radix-ui/themes";
-import React from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-const DeleteIssue = () => {
+const DeleteIssue = async ({ id }: { id: number }) => {
+  const router = useRouter();
+  const deleteIssue = async (id: number) => {
+    await axios.delete(`http://127.0.0.1:8000/delete_issue/${id}`);
+    router.push("/issues");
+    router.refresh();
+  };
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -24,7 +32,9 @@ const DeleteIssue = () => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button color="red">Delete Issue</Button>
+            <Button color="red" onClick={() => deleteIssue(id)}>
+              Delete Issue
+            </Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>

@@ -69,7 +69,7 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
         />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         {issue && (
-          <>
+          <Box>
             <Text as="p" className="text-sm font-medium">
               Status
             </Text>
@@ -88,7 +88,7 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
                 </Select.Content>
               </Select.Root>
             </Flex>
-          </>
+          </Box>
         )}
         <Text as="p" className="text-sm font-medium mt-5">
           Description
@@ -106,7 +106,8 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <PrimaryButton disabled={isSubmitting}>
-          Submit New Issue {isSubmitting && <Spinner />}
+          {issue ? "Submit Issue" : "Submit New Issue"}{" "}
+          {isSubmitting && <Spinner />}
         </PrimaryButton>
       </form>
     </Box>

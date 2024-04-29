@@ -62,5 +62,16 @@ def update(id: int, request: schema.Issue, db: Session = Depends(getDB)):
 
     return 'Updated'
 
+@app.delete('/delete_issue/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete(id: int, db: Session = Depends(getDB)):
+    issue = db.query(models.Issue).where(models.Issue.id == id)
+    if not issue.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"blog with id {id} not found")
+    issue.delete()
+    db.commit()
+
+    return "deleted"
+
 if __name__ == "__main__":
     uvicorn.run("routes:app", host="127.0.0.1", port=8000, reload=True)

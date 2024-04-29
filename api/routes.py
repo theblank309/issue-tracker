@@ -38,8 +38,11 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
     return new_issue
 
 @app.get('/get_issues', status_code=status.HTTP_200_OK,response_model=List[schema.IssueResponse])
-def create(db: Session = Depends(getDB)):
-    all_issues = db.query(models.Issue).all()
+def create(status: models.Status | None = None, db: Session = Depends(getDB)):
+    if status:
+        all_issues = db.query(models.Issue).where(models.Issue.status == status).all()
+    else:
+        all_issues = db.query(models.Issue).all()
 
     return all_issues
 

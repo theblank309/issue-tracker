@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Table } from "@radix-ui/themes";
 import {
@@ -12,7 +13,6 @@ import {
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import CustomLink from "@/app/components/Link";
 import { IssueResponse } from "@/app/schema";
-import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   issues: IssueResponse[];
@@ -55,8 +55,8 @@ const IssuesTable = ({ issues }: Props) => {
       params.delete("sort");
     }
 
-    const query = params.toString();
-    router.push("/issues?" + query);
+    const query = params.toString() ? "?" + params.toString() : "";
+    router.push("/issues" + query);
   };
 
   const setIcons = (column: any) => {

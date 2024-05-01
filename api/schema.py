@@ -1,6 +1,7 @@
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from models import Status
+from typing import Literal, Union
 
 class Issue(BaseModel):
     title: str
@@ -13,3 +14,8 @@ class IssueResponse(BaseModel, use_enum_values=True):
     description: str
     createdAt: datetime
     status: Status
+
+class GetIssuesQuery(BaseModel):
+    status: Union[Status, None]  = Field(None, description="status")
+    orderBy: Union[str, None] = Field(None, min_length=1, max_length=50, description="order by column")
+    sort: Literal['asc', 'desc', ''] = Field('', description="type of sort")

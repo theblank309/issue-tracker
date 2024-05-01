@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
 from fastapi import FastAPI, HTTPException, status, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,6 +9,12 @@ import schema, models
 from database import engine, SessionLocal
 
 models.Base.metadata.create_all(engine)
+
+column_mapping = {
+    'title': models.Issue.title,
+    'status': models.Issue.status,
+    'createdAt': models.Issue.createdAt
+}
 
 app = FastAPI()
 
@@ -38,12 +45,18 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
     return new_issue
 
 @app.get('/get_issues', status_code=status.HTTP_200_OK,response_model=List[schema.IssueResponse])
-def create(status: models.Status | None = None, db: Session = Depends(getDB)):
-    if status:
-        all_issues = db.query(models.Issue).where(models.Issue.status == status).all()
-    else:
-        all_issues = db.query(models.Issue).all()
+def create(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(getDB)):
+    query = db.query(models.Issue)
 
+    if param.status:
+        query = query.where(models.Issue.status == param.status)
+    if param.orderBy:
+        if param.sort == 'desc':
+            query = query.order_by(column_mapping[param.orderBy].desc())
+        else:
+            query = query.order_by(column_mapping[param.orderBy])
+
+    all_issues = query.all()
     return all_issues
 
 @app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.IssueResponse)

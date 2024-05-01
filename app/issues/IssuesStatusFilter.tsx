@@ -2,7 +2,7 @@
 
 import { Flex, Select } from "@radix-ui/themes";
 import { Status } from "@/app/schema";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const statuses: { label: string; value: Status }[] = [
   { label: "All", value: Status.ALL },
@@ -13,11 +13,16 @@ const statuses: { label: string; value: Status }[] = [
 
 const IssuesStatusFilter = () => {
   const router = useRouter();
+  const nextParams = useSearchParams();
   return (
     <Flex direction="column" minWidth="120px">
       <Select.Root
         onValueChange={(value) => {
-          const query = value !== "ALL" ? `?status=${value}` : "";
+          const params = new URLSearchParams(nextParams.toString());
+          value !== "ALL"
+            ? params.set("status", value)
+            : params.delete("status");
+          const query = params.toString() ? "?" + params.toString() : "";
           router.push(`/issues${query}`);
         }}
       >

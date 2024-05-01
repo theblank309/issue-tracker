@@ -1,5 +1,5 @@
 import React from "react";
-import { Status } from "../issues/page";
+import { Status } from "@/app/schema";
 import { Badge } from "@radix-ui/themes";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const statusMap: Record<
-  Status,
+  string,
   { label: string; color: "red" | "violet" | "green" }
 > = {
   OPEN: { label: "Open", color: "red" },

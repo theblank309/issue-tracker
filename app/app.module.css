@@ -1,0 +1,21 @@
+.mobileSidebar {
+    width: 200px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #f7f7f7;
+    border: 1px solid #dddddd;
+    z-index: 10;
+    padding-top: 10px;
+    padding-right: 10px;
+    transition: all 2s ease;
+}
+
+.mobileSidebarOpen {
+    transform: translateX(0);
+}
+
+.mobileSidebarClosed {
+    transform: translateX(100%);
+}

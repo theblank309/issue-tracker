@@ -2,12 +2,20 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { Box, Flex, Button, Dialog } from "@radix-ui/themes";
-import { PiBugDroid } from "react-icons/pi";
-import classnames from "classnames";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+
+import classnames from "classnames";
+
+import {
+  ActivityLogIcon,
+  DashboardIcon,
+  HamburgerMenuIcon,
+} from "@radix-ui/react-icons";
+import { PiBugDroid } from "react-icons/pi";
+import { Box, Button, Flex, Text } from "@radix-ui/themes";
+import * as Dialog from "@radix-ui/react-dialog";
+
+import styles from "./app.module.css";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -50,7 +58,7 @@ const NavBar = () => {
         {/* Navbar for small screen */}
         <div className="block ml-auto md:hidden">
           <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger>
+            <Dialog.Trigger asChild>
               <Button
                 color="gray"
                 variant="surface"
@@ -61,28 +69,27 @@ const NavBar = () => {
               </Button>
             </Dialog.Trigger>
             <Dialog.Content
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                position: "fixed",
-                top: 0,
-                right: open ? 0 : "-50%",
-                width: "50%",
-                height: "100%",
-                padding: "20px",
-                borderBottomRightRadius: 0,
-                borderTopRightRadius: 0,
-                transition: "right 0.3s ease-out",
-              }}
-              className="gap-y-3"
+              className={`${styles.mobileSidebar} ${
+                open ? styles.mobileSidebarOpen : styles.mobileSidebarClosed
+              }`}
             >
               {links.map((link) => (
-                <Dialog.Description
+                <Flex
+                  align="center"
+                  justify="end"
+                  my="4"
                   key={link.href}
                   onClick={() => setOpen(false)}
                 >
-                  {setLink(link)}
-                </Dialog.Description>
+                  {link.label === "Issues" ? (
+                    <ActivityLogIcon />
+                  ) : (
+                    <DashboardIcon />
+                  )}
+                  <Text size="3" asChild>
+                    {setLink(link)}
+                  </Text>
+                </Flex>
               ))}
             </Dialog.Content>
           </Dialog.Root>

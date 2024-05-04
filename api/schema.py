@@ -19,3 +19,5 @@ class GetIssuesQuery(BaseModel):
     status: Union[Status, None]  = Field(None, description="status")
     orderBy: Union[str, None] = Field(None, min_length=1, max_length=50, description="order by column")
     sort: Literal['asc', 'desc', ''] = Field('', description="type of sort")
+    currentPage: int = Field(1, description="current page")
+    pageSize: int = Field(10, description="limit for rows")

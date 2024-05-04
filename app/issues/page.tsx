@@ -1,10 +1,10 @@
-import axios from "axios";
+import IssuesStatusFilter from "@/app/issues/IssuesStatusFilter";
+import { IssueResponse, Status } from "@/app/schema";
 import { Box, Flex } from "@radix-ui/themes";
+import axios from "axios";
+import Pagination from "../components/Pagination";
 import IssuesTable from "./IssuesTable";
 import NewIssueButton from "./NewIssueButton";
-import { IssueResponse, Status } from "@/app/schema";
-import IssuesStatusFilter from "@/app/issues/IssuesStatusFilter";
-import Pagination from "../components/Pagination";
 
 interface Props {
   searchParams: {
@@ -17,9 +17,18 @@ interface Props {
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const params = new URLSearchParams(searchParams);
+  const currentPage = parseInt(searchParams.currentPage) || 1;
+  params.set("currentPage", currentPage.toString());
+
   const query = params.toString() ? "?" + params.toString() : "";
-  const response = await axios.get("http://127.0.0.1:8000/get_issues" + query);
-  const issues: IssueResponse[] = response.data;
+  const issues = (
+    await axios.get<IssueResponse[]>("http://127.0.0.1:8000/get_issues" + query)
+  ).data;
+
+  const pageSize = 10;
+  const itemCount = (
+    await axios.get<number>("http://127.0.0.1:8000/get_issues_count" + query)
+  ).data;
 
   return (
     <>
@@ -32,9 +41,9 @@ const IssuesPage = async ({ searchParams }: Props) => {
       </Box>
       <Flex align="center" gapX="2" my="4" justify="end">
         <Pagination
-          itemCount={100}
-          pageSize={10}
-          currentPage={parseInt(searchParams.currentPage) || 1}
+          itemCount={itemCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
         ></Pagination>
       </Flex>
     </>

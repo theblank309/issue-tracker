@@ -44,8 +44,8 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
 
     return new_issue
 
-@app.get('/get_issues', status_code=status.HTTP_200_OK,response_model=List[schema.IssueResponse])
-def create(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(getDB)):
+@app.get('/get_issues', status_code=status.HTTP_200_OK, response_model=List[schema.IssueResponse])
+def get_issues(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(getDB)):
     query = db.query(models.Issue)
 
     if param.status:
@@ -60,7 +60,7 @@ def create(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(getD
     return all_issues
 
 @app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.IssueResponse)
-def show(id: int, db: Session = Depends(getDB)):
+def get_issues(id: int, db: Session = Depends(getDB)):
     blog = db.query(models.Issue).where(models.Issue.id==id).first()
     if not blog:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -68,7 +68,7 @@ def show(id: int, db: Session = Depends(getDB)):
     return blog
 
 @app.patch('/issues/{id}', status_code=status.HTTP_202_ACCEPTED)
-def update(id: int, request: schema.Issue, db: Session = Depends(getDB)):
+def update_issue(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     issue = db.query(models.Issue).where(models.Issue.id == id)
     if not issue.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -79,7 +79,7 @@ def update(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     return 'Updated'
 
 @app.delete('/delete_issue/{id}', status_code=status.HTTP_204_NO_CONTENT)
-def delete(id: int, db: Session = Depends(getDB)):
+def delete_issue(id: int, db: Session = Depends(getDB)):
     issue = db.query(models.Issue).where(models.Issue.id == id)
     if not issue.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

@@ -70,6 +70,7 @@ const IssuesTable = ({ issues }: Props) => {
     );
   };
 
+  // ------------------------------------ Table Headers ---------------------------------------------
   const setHeaders = (column: any) => {
     return (
       <Table.ColumnHeaderCell key={column.value}>

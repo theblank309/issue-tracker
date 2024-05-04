@@ -10,20 +10,7 @@ interface Props {
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const statuses = Object.values(Status);
-  const params = new URLSearchParams();
-
-  const status = statuses.includes(searchParams.status)
-    ? searchParams.status
-    : "";
-  searchParams.status ? params.set("status", status) : params.delete("status");
-  searchParams.orderBy
-    ? params.set("orderBy", searchParams.orderBy)
-    : params.delete("orderBy");
-  searchParams.sort
-    ? params.set("sort", searchParams.sort)
-    : params.delete("sort");
-
+  const params = new URLSearchParams(searchParams);
   const query = params.toString() ? "?" + params.toString() : "";
   const response = await axios.get("http://127.0.0.1:8000/get_issues" + query);
   const issues: IssueResponse[] = response.data;

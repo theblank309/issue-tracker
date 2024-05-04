@@ -4,9 +4,15 @@ import IssuesTable from "./IssuesTable";
 import NewIssueButton from "./NewIssueButton";
 import { IssueResponse, Status } from "@/app/schema";
 import IssuesStatusFilter from "@/app/issues/IssuesStatusFilter";
+import Pagination from "../components/Pagination";
 
 interface Props {
-  searchParams: { status: Status; orderBy: keyof IssueResponse; sort: string };
+  searchParams: {
+    status: Status;
+    orderBy: keyof IssueResponse;
+    sort: string;
+    currentPage: string;
+  };
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
@@ -17,13 +23,20 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <Flex className="mb-5" justify="between">
+      <Flex justify="between" mb="4">
         <IssuesStatusFilter />
         <NewIssueButton />
       </Flex>
       <Box>
         <IssuesTable issues={issues} />
       </Box>
+      <Flex align="center" gapX="2" my="4" justify="end">
+        <Pagination
+          itemCount={100}
+          pageSize={10}
+          currentPage={parseInt(searchParams.currentPage) || 1}
+        ></Pagination>
+      </Flex>
     </>
   );
 };

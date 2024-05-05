@@ -11,11 +11,3 @@
     padding-right: 10px;
     transition: all 2s ease;
 }
-
-.mobileSidebarOpen {
-    transform: translateX(0);
-}
-
-.mobileSidebarClosed {
-    transform: translateX(100%);
-}

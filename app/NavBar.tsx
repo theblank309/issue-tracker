@@ -42,7 +42,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="min-h-16 border-b content-center px-5 mb-5 bg-white">
+    <nav className="min-h-16 border-b content-center px-5 mb-3 bg-white">
       <Flex gap="3" className="items-center">
         <Box mr="5">
           <Flex className="font-bold text-xl items-center text-fifth-color">
@@ -69,9 +69,10 @@ const NavBar = () => {
               </Button>
             </Dialog.Trigger>
             <Dialog.Content
-              className={`${styles.mobileSidebar} ${
-                open ? styles.mobileSidebarOpen : styles.mobileSidebarClosed
-              }`}
+              className={styles.mobileSidebar}
+              style={{
+                transform: `${open ? "translateX(0)" : "translateX(100%)"}`,
+              }}
             >
               {links.map((link) => (
                 <Flex

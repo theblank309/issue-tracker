@@ -1,3 +1,5 @@
+"use client";
+
 import { Select as RDSelect } from "@radix-ui/themes";
 import "@/app/components/Select/styles.css";
 

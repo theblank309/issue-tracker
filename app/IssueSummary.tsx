@@ -23,7 +23,7 @@ const IssueSummary = ({ open, in_progress, closed }: Props) => {
   return (
     <Grid gap="3" columns={{ initial: "1", xs: "3" }}>
       {containers.map((container) => (
-        <Box width={{ initial: "80dvw", xs: "200px" }} key={container.status}>
+        <Box width={{ initial: "80dvw", xs: "160px" }} key={container.status}>
           <Card>
             <Flex direction="column">
               <Link

@@ -52,7 +52,7 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
 
   console.log(issue);
   return (
-    <Box className="max-w-xl mt-5">
+    <Box className="max-w-xl mt-4">
       {error && (
         <Callout.Root color="red" className="mb-3" size="1">
           <Callout.Text>{error}</Callout.Text>

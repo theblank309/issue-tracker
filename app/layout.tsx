@@ -29,7 +29,7 @@ export default function RootLayout({
             className={`${inter.variable} font-sans bg-first-color min-h-dvh h-max`}
           >
             <NavBar />
-            <main className="px-6 py-2">{children}</main>
+            <main className="px-6 py-2 mt-4">{children}</main>
           </div>
         </Theme>
       </body>

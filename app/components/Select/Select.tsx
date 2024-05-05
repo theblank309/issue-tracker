@@ -1,19 +1,25 @@
 "use client";
 
 import { Select as RDSelect } from "@radix-ui/themes";
-import "@/app/components/Select/styles.css";
+import styles from "@/app/components/Select/select.module.css";
 
 interface Props {
   items: { label: string; option: string }[];
   fontSize?: string;
   fontWeight?: number;
+  defaultValue: string;
 }
 
-const Select = ({ items, fontSize = "22px", fontWeight = 400 }: Props) => {
+const Select = ({
+  items,
+  fontSize = "22px",
+  fontWeight = 400,
+  defaultValue,
+}: Props) => {
   return (
-    <RDSelect.Root defaultValue={items[0].option} size="3">
+    <RDSelect.Root defaultValue={defaultValue} size="3">
       <RDSelect.Trigger
-        className="customTrigger"
+        className={`${styles.customTrigger} customTriggerAddition`}
         style={{ fontSize: fontSize, fontWeight: fontWeight }}
       />
       <RDSelect.Content position="popper" align="start">

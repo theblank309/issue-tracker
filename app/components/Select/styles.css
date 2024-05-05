@@ -1,0 +1,13 @@
+.customTrigger{
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding-left: 5px !important;
+}
+
+.customTrigger .rt-SelectIcon{
+    display: none;
+}
+
+.customTrigger:focus{
+    outline: none;
+}

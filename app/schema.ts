@@ -14,6 +14,12 @@ export enum Status {
     CLOSED = "CLOSED",
 }
 
+export enum SummaryOptions {
+    OVERALL = "OVERALL",
+    CURRENT_MONTH = "CURRENT_MONTH",
+    CURRENT_YEAR = "CURRENT_YEAR",
+}
+
 export const createIssueSchema = z.object({
     title: z.string().min(1).max(255),
     description: z.string().min(1),

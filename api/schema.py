@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
-from api.models import Status
+from api.models import Impact, Status
 from typing import Literal, Union
 
 class Issue(BaseModel):
@@ -15,6 +15,7 @@ class IssueResponse(BaseModel, use_enum_values=True):
     createdAt: datetime
     updatedAt: datetime
     status: Status
+    impact: Impact
 
 class GetIssuesQuery(BaseModel):
     status: Union[Status, None]  = Field(None, description="status")

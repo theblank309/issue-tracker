@@ -14,7 +14,8 @@ column_mapping = {
     'title': models.Issue.title,
     'status': models.Issue.status,
     'createdAt': models.Issue.createdAt,
-    'updatedAt': models.Issue.updatedAt
+    'updatedAt': models.Issue.updatedAt,
+    'impact': models.Issue.impact
 }
 
 app = FastAPI()

@@ -9,6 +9,11 @@ class Status(str, enum.Enum):
     IN_PROGRESS = 'IN_PROGRESS'
     CLOSED = 'CLOSED'
 
+class Impact(str, enum.Enum):
+    HIGH = 'HIGH'
+    MODERATE = 'MODERATE'
+    LOW = 'LOW'
+
 class Issue(Base):
     __tablename__ = 'issues'
 
@@ -18,3 +23,4 @@ class Issue(Base):
     status = Column(Enum(Status), default=Status.OPEN)
     createdAt = Column(DateTime, default=datetime.now())
     updatedAt = Column(DateTime, default=datetime.now())
+    impact = Column(Enum(Impact), nullable=True)

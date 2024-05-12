@@ -13,6 +13,7 @@ import {
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import CustomLink from "@/app/components/Link";
 import { IssueResponse } from "@/app/schema";
+import IssueImpactBadge from "@/app/components/IssueImpactBadge";
 
 interface Props {
   issues: IssueResponse[];
@@ -30,9 +31,10 @@ const IssuesTable = ({ issues }: Props) => {
     className?: string;
   }[] = [
     { label: "Issue", value: "title" },
-    { label: "Status", value: "status" },
+    { label: "Impact", value: "impact" },
     { label: "Created", value: "createdAt" },
     { label: "Updated", value: "updatedAt" },
+    { label: "Status", value: "status" },
   ];
 
   const handleSort = (column: any) => {
@@ -91,16 +93,19 @@ const IssuesTable = ({ issues }: Props) => {
           <CustomLink href={`/issues/${issue.id}`}>{issue.title}</CustomLink>
         </Table.RowHeaderCell>
         <Table.Cell>
-          <IssueStatusBadge status={issue.status} />
+          <IssueImpactBadge impact={issue.impact} />
         </Table.Cell>
         <Table.Cell>{createdDate.toDateString()}</Table.Cell>
         <Table.Cell>{updatedData.toDateString()}</Table.Cell>
+        <Table.Cell>
+          <IssueStatusBadge status={issue.status} />
+        </Table.Cell>
       </Table.Row>
     );
   };
 
   return (
-    <Table.Root variant="surface" layout="fixed">
+    <Table.Root variant="surface">
       <Table.Header>
         <Table.Row>{columns.map(setHeaders)}</Table.Row>
       </Table.Header>

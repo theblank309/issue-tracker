@@ -7,12 +7,19 @@ export interface IssueResponse {
     updatedAt: string;
     status: Status;
     description: string;
+    impact: Impact
 }
   
 export enum Status {
     OPEN = "OPEN",
     IN_PROGRESS = "IN_PROGRESS",
     CLOSED = "CLOSED",
+}
+
+export enum Impact {
+    HIGH = "HIGH",
+    MODERATE = "MODERATE",
+    LOW = "LOW",
 }
 
 export enum SummaryOptions {

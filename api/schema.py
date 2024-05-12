@@ -13,6 +13,7 @@ class IssueResponse(BaseModel, use_enum_values=True):
     title: str
     description: str
     createdAt: datetime
+    updatedAt: datetime
     status: Status
 
 class GetIssuesQuery(BaseModel):

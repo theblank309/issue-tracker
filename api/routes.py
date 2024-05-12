@@ -13,7 +13,8 @@ models.Base.metadata.create_all(engine)
 column_mapping = {
     'title': models.Issue.title,
     'status': models.Issue.status,
-    'createdAt': models.Issue.createdAt
+    'createdAt': models.Issue.createdAt,
+    'updatedAt': models.Issue.updatedAt
 }
 
 app = FastAPI()

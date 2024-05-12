@@ -32,6 +32,7 @@ const IssuesTable = ({ issues }: Props) => {
     { label: "Issue", value: "title" },
     { label: "Status", value: "status" },
     { label: "Created", value: "createdAt" },
+    { label: "Updated", value: "updatedAt" },
   ];
 
   const handleSort = (column: any) => {
@@ -82,7 +83,8 @@ const IssuesTable = ({ issues }: Props) => {
 
   // ------------------------------------ Table Row Values ---------------------------------------------
   const tableRows = (issue: IssueResponse) => {
-    const date = new Date(issue.createdAt);
+    const createdDate = new Date(issue.createdAt);
+    const updatedData = new Date(issue.createdAt);
     return (
       <Table.Row key={issue.id}>
         <Table.RowHeaderCell>
@@ -91,7 +93,8 @@ const IssuesTable = ({ issues }: Props) => {
         <Table.Cell>
           <IssueStatusBadge status={issue.status} />
         </Table.Cell>
-        <Table.Cell>{date.toDateString()}</Table.Cell>
+        <Table.Cell>{createdDate.toDateString()}</Table.Cell>
+        <Table.Cell>{updatedData.toDateString()}</Table.Cell>
       </Table.Row>
     );
   };

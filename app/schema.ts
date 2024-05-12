@@ -4,6 +4,7 @@ export interface IssueResponse {
     id: number;
     title: string;
     createdAt: string;
+    updatedAt: string;
     status: Status;
     description: string;
 }

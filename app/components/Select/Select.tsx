@@ -19,7 +19,7 @@ const Select = ({
   return (
     <RDSelect.Root defaultValue={defaultValue} size="3">
       <RDSelect.Trigger
-        className={`${styles.customTrigger} customTriggerAddition`}
+        className={`${styles.customTrigger}`}
         style={{ fontSize: fontSize, fontWeight: fontWeight }}
       />
       <RDSelect.Content position="popper" align="start">

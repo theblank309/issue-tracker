@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "fastapi-dev": "python -m uvicorn api.routes:app --reload",
+    "next-dev": "next dev",
+    "dev": "concurrently \"npm run next-dev\" \"npm run fastapi-dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -24,6 +26,7 @@
     "autoprefixer": "10.4.19",
     "axios": "^1.6.8",
     "classnames": "^2.5.1",
+    "concurrently": "^8.2.2",
     "delay": "^6.0.0",
     "easymde": "^2.18.0",
     "eslint": "8.57.0",

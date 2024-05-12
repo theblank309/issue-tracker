@@ -108,16 +108,22 @@ const IssueChart = () => {
           data={data}
           margin={{ top: 10, right: 50, bottom: 20, left: 0 }}
         >
-          <XAxis dataKey="name" height={30} tickMargin={12} />
-          <YAxis />
+          <XAxis dataKey="name" tickMargin={10} style={{ fontSize: "12px" }} />
+          <YAxis style={{ fontSize: "12px" }} />
           <Tooltip />
           <Legend
             iconType="circle"
             iconSize={10}
             verticalAlign="top"
-            height={20}
+            style={{ paddingBottom: "10px" }}
           />
-          <Line type="linear" dataKey="open" stroke="#1C2541" name="Open" />
+          <Line
+            type="linear"
+            dataKey="open"
+            stroke="#1C2541"
+            name="Open"
+            fontSize="10"
+          />
           <Line
             type="linear"
             dataKey="in_progress"

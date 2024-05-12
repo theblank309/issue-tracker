@@ -5,8 +5,8 @@ from fastapi import FastAPI, HTTPException, status, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-import schema, models
-from database import engine, SessionLocal
+from api import schema, models
+from api.database import engine, SessionLocal
 
 models.Base.metadata.create_all(engine)
 

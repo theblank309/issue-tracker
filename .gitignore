@@ -40,4 +40,4 @@ env
 # others
 activate.bat
 */__pycache__
-api/*.db
+*.db

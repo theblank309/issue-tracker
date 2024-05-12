@@ -2,7 +2,7 @@ import enum
 from datetime import datetime
 from sqlalchemy import Column, String, Integer,Text, Enum, DateTime
 
-from database import Base
+from api.database import Base
 
 class Status(str, enum.Enum):
     OPEN = 'OPEN'

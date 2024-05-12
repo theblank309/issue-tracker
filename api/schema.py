@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
-from models import Status
+from api.models import Status
 from typing import Literal, Union
 
 class Issue(BaseModel):

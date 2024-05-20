@@ -10,7 +10,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Box, Callout, Flex, Select, Text, TextField } from "@radix-ui/themes";
 
-import { createIssueSchema, IssueResponse, Status } from "@/app/schema";
+import { createIssueSchema, Impact, IssueResponse, Status } from "@/app/schema";
 import Spinner from "@/app/components/Spinner";
 import { PrimaryButton } from "@/app/components/Buttons";
 import ErrorMessage from "@/app/components/ErrorMessage";
@@ -68,28 +68,51 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
           {...register("title")}
         />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
-        {issue && (
+        <Flex gapX="2">
           <Box>
-            <Text as="p" className="text-sm font-medium">
-              Status
+            <Text as="p" className="text-sm font-medium" mb="1">
+              Impact
             </Text>
-            <Flex direction="column" maxWidth="150px">
+            <Flex direction="column" width="150px">
               <Select.Root
-                defaultValue={issue?.status}
-                onValueChange={(value: Status) => setValue("status", value)}
+                defaultValue={issue ? issue?.impact : "None"}
+                onValueChange={(value: Impact) => setValue("impact", value)}
               >
                 <Select.Trigger />
                 <Select.Content position="popper">
                   <Select.Group>
-                    <Select.Item value="OPEN">Open</Select.Item>
-                    <Select.Item value="IN_PROGRESS">In Progress</Select.Item>
-                    <Select.Item value="CLOSED">Closed</Select.Item>
+                    <Select.Item value="None">Select impact...</Select.Item>
+                    <Select.Item value="HIGH">High</Select.Item>
+                    <Select.Item value="MODERATE">Moderate</Select.Item>
+                    <Select.Item value="LOW">Low</Select.Item>
                   </Select.Group>
                 </Select.Content>
               </Select.Root>
             </Flex>
           </Box>
-        )}
+          {issue && (
+            <Box>
+              <Text as="p" className="text-sm font-medium" mb="1">
+                Status
+              </Text>
+              <Flex direction="column" width="150px">
+                <Select.Root
+                  defaultValue={issue?.status}
+                  onValueChange={(value: Status) => setValue("status", value)}
+                >
+                  <Select.Trigger />
+                  <Select.Content position="popper">
+                    <Select.Group>
+                      <Select.Item value="OPEN">Open</Select.Item>
+                      <Select.Item value="IN_PROGRESS">In Progress</Select.Item>
+                      <Select.Item value="CLOSED">Closed</Select.Item>
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+              </Flex>
+            </Box>
+          )}
+        </Flex>
         <Text as="p" className="text-sm font-medium mt-5">
           Description
         </Text>

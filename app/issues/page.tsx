@@ -5,6 +5,7 @@ import axios from "axios";
 import Pagination from "../components/Pagination";
 import IssuesTable from "./IssuesTable";
 import NewIssueButton from "./NewIssueButton";
+import NewUserButton from "./NewUserButton";
 
 interface Props {
   searchParams: {
@@ -34,7 +35,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
     <>
       <Flex justify="between" mb="4">
         <IssuesStatusFilter />
-        <NewIssueButton />
+        <Flex gapX="2">
+          <NewIssueButton />
+          <NewUserButton />
+        </Flex>
       </Flex>
       <Box>
         <IssuesTable issues={issues} />

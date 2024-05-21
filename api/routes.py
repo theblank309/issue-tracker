@@ -83,7 +83,7 @@ def update_issue(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     if not issue.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Issue with id {id} not found")
-    issue.update({'title': request.title, 'description': request.description, 'status': request.status})
+    issue.update({'title': request.title, 'description': request.description, 'status': request.status, 'impact': request.impact})
     db.commit()
 
     return 'Updated'

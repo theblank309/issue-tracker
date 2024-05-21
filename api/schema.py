@@ -7,7 +7,7 @@ class Issue(BaseModel):
     title: str
     description: str
     status: Status = 'OPEN'
-    impact: Impact
+    impact: Optional[Impact]
 
 class User(BaseModel):
     name: str

@@ -37,6 +37,7 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
     try {
       setSubmitting(true);
       if (issue) {
+        console.log(data);
         await axios.patch(`http://127.0.0.1:8000/issues/${issue?.id}`, data);
         router.push(`/issues/${issue?.id}`);
       } else {
@@ -46,11 +47,15 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
       router.refresh();
     } catch (error) {
       setSubmitting(true);
+      console.log(error);
       setError("An unexpected error occurred.");
     }
   };
 
-  console.log(issue);
+  if (issue) {
+    setValue("status", issue?.status);
+    setValue("impact", issue?.impact);
+  }
   return (
     <Box className="max-w-xl mt-4">
       {error && (

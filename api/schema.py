@@ -10,7 +10,6 @@ class Issue(BaseModel):
     impact: Impact
 
 class User(BaseModel):
-    id: int
     name: str
     email: str
 

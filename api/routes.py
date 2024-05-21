@@ -37,7 +37,7 @@ def getDB():
     finally:
         db.close()
 
-@app.post('/issue', status_code=status.HTTP_201_CREATED)
+@app.post('/issue', status_code=status.HTTP_201_CREATED, tags=['Issue'])
 def create(request: schema.Issue, db: Session = Depends(getDB)):
     new_issue = models.Issue(title=request.title, description=request.description, impact=request.impact)
     db.add(new_issue)
@@ -46,7 +46,7 @@ def create(request: schema.Issue, db: Session = Depends(getDB)):
 
     return new_issue
 
-@app.get('/get_issues', status_code=status.HTTP_200_OK, response_model=List[schema.IssueResponse])
+@app.get('/get_issues', status_code=status.HTTP_200_OK, response_model=List[schema.IssueResponse], tags=['Issue'])
 def get_issues(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(getDB)):
     query = db.query(models.Issue)
     if param.status:
@@ -61,7 +61,7 @@ def get_issues(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(
     all_issues = query.all()
     return all_issues
 
-@app.get('/get_issues_count', status_code=status.HTTP_200_OK, response_model=int)
+@app.get('/get_issues_count', status_code=status.HTTP_200_OK, response_model=int, tags=['Issue'])
 def get_issues_count(param: schema.GetIssuesQuery = Depends(),  db: Session = Depends(getDB)):
     query = db.query(models.Issue)
     if param.status:
@@ -69,7 +69,7 @@ def get_issues_count(param: schema.GetIssuesQuery = Depends(),  db: Session = De
     total_issues = query.count()
     return total_issues
 
-@app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.IssueResponse)
+@app.get('/get_issues/{id}', status_code=status.HTTP_200_OK, response_model=schema.IssueResponse, tags=['Issue'])
 def get_issues(id: int, db: Session = Depends(getDB)):
     issue = db.query(models.Issue).where(models.Issue.id==id).first()
     if not issue:
@@ -77,7 +77,7 @@ def get_issues(id: int, db: Session = Depends(getDB)):
                              detail=f"Issue with id {id} not found")
     return issue
 
-@app.patch('/issues/{id}', status_code=status.HTTP_202_ACCEPTED)
+@app.patch('/issues/{id}', status_code=status.HTTP_202_ACCEPTED, tags=['Issue'])
 def update_issue(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     issue = db.query(models.Issue).where(models.Issue.id == id)
     if not issue.first():
@@ -88,7 +88,7 @@ def update_issue(id: int, request: schema.Issue, db: Session = Depends(getDB)):
 
     return 'Updated'
 
-@app.delete('/delete_issue/{id}', status_code=status.HTTP_204_NO_CONTENT)
+@app.delete('/delete_issue/{id}', status_code=status.HTTP_204_NO_CONTENT, tags=['Issue'])
 def delete_issue(id: int, db: Session = Depends(getDB)):
     issue = db.query(models.Issue).where(models.Issue.id == id)
     if not issue.first():
@@ -98,6 +98,15 @@ def delete_issue(id: int, db: Session = Depends(getDB)):
     db.commit()
 
     return "deleted"
+
+@app.post('/user', status_code=status.HTTP_201_CREATED, tags=['User'])
+def create_user(request: schema.User, db: Session = Depends(getDB)):
+    new_user = models.User(name=request.name, email=request.email)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return new_user
 
 if __name__ == "__main__":
     uvicorn.run("routes:app", host="127.0.0.1", port=8000, reload=True)

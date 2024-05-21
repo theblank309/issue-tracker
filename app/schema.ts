@@ -35,3 +35,9 @@ export const createIssueSchema = z.object({
     impact: z.nativeEnum(Impact).optional()
 });
 
+export const createUserSchema = z.object({
+    name: z.string().min(1).max(255),
+    email: z.string().email('Invalid email address'),
+});
+
+

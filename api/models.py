@@ -1,6 +1,7 @@
 import enum
 from datetime import datetime
-from sqlalchemy import Column, String, Integer,Text, Enum, DateTime
+from sqlalchemy import Column, String, Integer,Text, Enum, DateTime, ForeignKey
+from sqlalchemy.orm import mapped_column, relationship
 
 from api.database import Base
 
@@ -24,3 +25,13 @@ class Issue(Base):
     createdAt = Column(DateTime, default=datetime.now())
     updatedAt = Column(DateTime, default=datetime.now())
     impact = Column(Enum(Impact), nullable=True)
+    user_id = mapped_column(ForeignKey("users.id"), nullable=True)
+    user = relationship("User", back_populates="issues")
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement='auto')
+    name = Column(String(255))
+    email = Column(Text)
+    issues = relationship("Issue", back_populates="user")

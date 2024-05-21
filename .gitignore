@@ -41,3 +41,5 @@ env
 activate.bat
 */__pycache__
 *.db
+issues.csv
+issues.sql

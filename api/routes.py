@@ -39,7 +39,7 @@ def getDB():
 
 @app.post('/issue', status_code=status.HTTP_201_CREATED)
 def create(request: schema.Issue, db: Session = Depends(getDB)):
-    new_issue = models.Issue(title=request.title, description=request.description)
+    new_issue = models.Issue(title=request.title, description=request.description, impact=request.impact)
     db.add(new_issue)
     db.commit()
     db.refresh(new_issue)

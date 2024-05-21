@@ -1,12 +1,18 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
 from api.models import Impact, Status
-from typing import Literal, Union
+from typing import Literal, Union, Optional
 
 class Issue(BaseModel):
     title: str
     description: str
     status: Status = 'OPEN'
+    impact: Impact
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
 
 class IssueResponse(BaseModel, use_enum_values=True):
     id: int
@@ -16,6 +22,7 @@ class IssueResponse(BaseModel, use_enum_values=True):
     updatedAt: datetime
     status: Status
     impact: Impact
+    user: Optional[User]
 
 class GetIssuesQuery(BaseModel):
     status: Union[Status, None]  = Field(None, description="status")

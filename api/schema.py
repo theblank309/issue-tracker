@@ -10,6 +10,15 @@ class Issue(BaseModel):
     impact: Optional[Impact]
 
 class User(BaseModel):
+    id: Optional[int] = None
+    name: str
+    email: str
+
+class AssignUser(BaseModel):
+    issue_id: int
+    user_email: str
+
+class UserResponse(BaseModel):
     name: str
     email: str
 
@@ -21,7 +30,7 @@ class IssueResponse(BaseModel, use_enum_values=True):
     updatedAt: datetime
     status: Status
     impact: Impact
-    user: Optional[User]
+    user: Optional[UserResponse]
 
 class GetIssuesQuery(BaseModel):
     status: Union[Status, None]  = Field(None, description="status")

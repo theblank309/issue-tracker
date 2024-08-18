@@ -2,13 +2,14 @@ import "@radix-ui/themes/styles.css";
 import "./theme-config.css";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import { Theme, ThemePanel } from "@radix-ui/themes";
 import NavBar from "./NavBar";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({
+const fontSans = FontSans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -22,11 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <Theme>
           <div
-            className={`${inter.variable} font-sans bg-first-color min-h-dvh h-max`}
+            className={cn("bg-first-color min-h-dvh h-max", fontSans.variable)}
           >
             <NavBar />
             <main className="px-6 py-2 mt-4">{children}</main>

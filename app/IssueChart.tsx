@@ -94,6 +94,24 @@ const IssueChart = () => {
       in_progress: 13,
       closed: 34,
     },
+    {
+      name: "13/05",
+      open: 10,
+      in_progress: 23,
+      closed: 5,
+    },
+    {
+      name: "14/05",
+      open: 3,
+      in_progress: 7,
+      closed: 15,
+    },
+    {
+      name: "15/05",
+      open: 53,
+      in_progress: 10,
+      closed: 23,
+    },
   ];
 
   const COLORS = ["#1C2541", "#3A506B", "#A9BDD6"];
@@ -110,7 +128,10 @@ const IssueChart = () => {
         >
           <XAxis dataKey="name" tickMargin={10} style={{ fontSize: "12px" }} />
           <YAxis style={{ fontSize: "12px" }} />
-          <Tooltip />
+          <Tooltip
+            contentStyle={{ fontSize: "13px" }} // Adjust font size of the content
+            labelStyle={{ fontSize: "15px" }}
+          />
           <Legend
             iconType="circle"
             iconSize={10}

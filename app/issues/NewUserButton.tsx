@@ -32,6 +32,7 @@ const NewUserButton = () => {
     try {
       setSubmitting(true);
       if (errors) null;
+      console.log(data);
       await axios.post("http://127.0.0.1:8000/user", data);
       setSubmitting(false);
       setOpen(false);

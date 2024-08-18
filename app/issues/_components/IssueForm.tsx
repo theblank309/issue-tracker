@@ -38,10 +38,13 @@ const IssueForm = ({ issue }: { issue?: IssueResponse }) => {
       setSubmitting(true);
       if (issue) {
         console.log(data);
-        await axios.patch(`http://127.0.0.1:8000/issues/${issue?.id}`, data);
+        await axios.patch(
+          `http://127.0.0.1:8000/update_issues/${issue?.id}`,
+          data
+        );
         router.push(`/issues/${issue?.id}`);
       } else {
-        await axios.post("http://127.0.0.1:8000/issue", data);
+        await axios.post("http://127.0.0.1:8000/create_issue", data);
         router.push("/issues");
       }
       router.refresh();

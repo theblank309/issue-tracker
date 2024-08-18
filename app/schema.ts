@@ -7,7 +7,11 @@ export interface IssueResponse {
     updatedAt: string;
     status: Status;
     description: string;
-    impact: Impact
+    impact: Impact;
+    user: {
+        name: string;
+        email: string;
+    } | null;
 }
   
 export enum Status {

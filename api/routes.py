@@ -37,7 +37,7 @@ def getDB():
     finally:
         db.close()
 
-@app.post('/issue', status_code=status.HTTP_201_CREATED, tags=['Issue'])
+@app.post('/create_issue', status_code=status.HTTP_201_CREATED, tags=['Issue'])
 def create(request: schema.Issue, db: Session = Depends(getDB)):
     new_issue = models.Issue(title=request.title, description=request.description, impact=request.impact)
     db.add(new_issue)
@@ -77,7 +77,7 @@ def get_issues(id: int, db: Session = Depends(getDB)):
                              detail=f"Issue with id {id} not found")
     return issue
 
-@app.patch('/issues/{id}', status_code=status.HTTP_202_ACCEPTED, tags=['Issue'])
+@app.patch('/update_issues/{id}', status_code=status.HTTP_202_ACCEPTED, tags=['Issue'])
 def update_issue(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     issue = db.query(models.Issue).where(models.Issue.id == id)
     if not issue.first():
@@ -87,6 +87,24 @@ def update_issue(id: int, request: schema.Issue, db: Session = Depends(getDB)):
     db.commit()
 
     return 'Updated'
+
+@app.patch('/assign_user', status_code=status.HTTP_202_ACCEPTED, tags=['Issue'])
+def assign_user(request: schema.AssignUser, db: Session = Depends(getDB)):
+    issue = db.query(models.Issue).where(models.Issue.id == request.issue_id)
+    if not issue.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Issue with id {id} not found")
+    if request.user_email == "":
+        issue.update({'user_id': None})
+    else:
+        user = db.query(models.User).where(models.User.email == request.user_email)
+        if not user.first():
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail=f"User not found")
+        issue.update({'user_id': user.first().id})
+    db.commit()
+
+    return 'Assigned user'
 
 @app.delete('/delete_issue/{id}', status_code=status.HTTP_204_NO_CONTENT, tags=['Issue'])
 def delete_issue(id: int, db: Session = Depends(getDB)):
@@ -107,6 +125,11 @@ def create_user(request: schema.User, db: Session = Depends(getDB)):
     db.refresh(new_user)
 
     return new_user
+
+@app.get('/get_users', status_code=status.HTTP_200_OK, response_model=List[schema.UserResponse], tags=['User'])
+def get_users(db: Session = Depends(getDB)):
+    all_users = db.query(models.User).all()
+    return all_users
 
 if __name__ == "__main__":
     uvicorn.run("routes:app", host="127.0.0.1", port=8000, reload=True)
